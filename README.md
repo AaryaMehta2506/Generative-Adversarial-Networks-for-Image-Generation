@@ -1,78 +1,41 @@
 AI/ML Advance Project
 # Generative Adversarial Networks for Image Generation
 
-## Project Overview
-This project builds a Fake News Detection System trained on a dataset containing real and fake news articles. It uses TF-IDF vectorization and a Logistic Regression or Naive Bayes classifier to analyze the textual patterns of news content. The system is deployed with Streamlit for easy interaction — users can enter a news statement and instantly see if it’s fake or real, along with a confidence score.
+This project implements a Generative Adversarial Network (GAN) to generate realistic handwritten digit images using the MNIST dataset. The GAN consists of two neural networks: a Generator that creates fake images and a Discriminator that distinguishes between real and fake images. Both networks are trained together in an adversarial manner until the Generator produces images that closely resemble real digits.
 
-## Key Features
-- Text preprocessing with cleaning, stopword removal, and lemmatization
-- TF-IDF vectorization for feature extraction
-- Model trained to achieve around 98–99% accuracy
-- Streamlit web interface for real-time predictions
-- Confidence score displayed for each prediction
-- Automatically loads a trained model (or trains one if not found)
+## Key Steps
+1. Loaded and preprocessed the MNIST dataset.
+2. Built a Generator network using Conv2DTranspose layers.
+3. Built a Discriminator network using Conv2D layers.
+4. Defined adversarial training objectives using binary cross-entropy loss.
+5. Trained the GAN using alternating updates for Generator and Discriminator.
+6. Visualized generated images at different training epochs.
 
-## Why Some True Statements Are Flagged as Fake
-Short or overly simple sentences such as "Donald Trump is a president of America" may be predicted as fake because the model was trained mostly on full-length news articles. It assumes "fake" when:
-- The text resembles clickbait or incomplete statements seen in fake samples
-- The statement lacks journalistic context such as sources or structure
-- The model detects political figure mentions that often correlated with fake news in the dataset
+## Results
+After training, the Generator produces high-quality digit images resembling those from the MNIST dataset. The output improves as epochs progress, showcasing how adversarial training enhances generative performance.
 
-To improve predictions, provide more context. For example:
-"Donald Trump served as the 45th President of the United States, according to official records."
-This provides linguistic structure and facts, which help the model classify more accurately.
+## Technologies Used
+Python, TensorFlow/Keras, NumPy, Matplotlib
 
-## Tech Stack
-- Python 3
-- Pandas, NumPy
-- NLTK (for stopwords and lemmatization)
-- Scikit-learn (for TF-IDF and model training)
-- Streamlit (for deployment)
-- Joblib (for saving/loading models)
-
-## Dataset 
-link : https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset
-
-## Folder Structure
-Fake-News-Detection/
-│
-├── fake_news_detection.ipynb   # Model training and evaluation
-├── app.py                      # Streamlit application
-├── vectorizer.pkl              # Saved TF-IDF vectorizer
-├── model.pkl                   # Saved ML model
-├── true.csv                    # True news dataset
-├── fake.csv                    # Fake news dataset
-└── README.md                   # Project documentation
+## Dataset
+The MNIST dataset is used and directly loaded via TensorFlow’s built-in function:
+(X_train, _), (_, _) = tf.keras.datasets.mnist.load_data()
+Hence, there is no need to download the dataset manually.
+Link : https://www.kaggle.com/datasets/hojjatk/mnist-dataset
+and I have downlaoded: 
+train-images.idx3-ubyte
+train-labels.idx1-ubyte
+t10k-images.idx3-ubyte
+t10k-labels.idx1-ubyte
 
 ## How to Run
-1. Install dependencies
-   pip install -r requirements.txt
+1. Clone the repository.
+2. Install dependencies using: pip install tensorflow numpy matplotlib
+3. Run the notebook or script to train the GAN.
+4. Generated images will be saved automatically after every 10 epochs.
 
-2. Run the Streamlit app
-   streamlit run app.py
-
-3. Interact with the app  
-   Enter any news content and click "Check News" to get:
-   - Real or Fake label
-   - Confidence percentage
-
-## Model Performance
-Accuracy: 98.8%  
-Precision: 0.99  
-Recall: 0.99  
-F1-score: 0.99  
-
-## Example Predictions
-Input: "The U.S. Senate passed a new infrastructure bill on Tuesday."  
-Output: Real News (Confidence: 97%)
-
-Input: "NASA confirms Earth will go dark for 15 days next month."  
-Output: Fake News (Confidence: 99%)
-
-## Future Improvements
-- Add multiple ML models for comparison
-- Include article source verification
-- Integrate live fact-checking API
+## Learning Outcome
+This project demonstrates the fundamental principles of Generative Adversarial Networks, data preprocessing, adversarial training, and deep learning-based image generation.
 
 ## Contributing
 Contributions are welcome!
